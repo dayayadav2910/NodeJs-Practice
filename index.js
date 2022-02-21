@@ -1,30 +1,22 @@
-const express = require('express')
+const express =  require("express");
+const mongoos =  require("mongoose");
 const app = express();
 
-const filerApi = (req,res,next) =>{
-    if(!req.query.age){
-        res.send("Please enter your age");
 
-    }
-    else if(req.query.age<18){
-        res.send("You are not allowed to open this site")
-    }
-    else{
-        next();
-    }
+
+const main = async () =>{
+
+    await mongoos.connect('mongodb://localhost:27017/ecommerce');
+    const productschema =  new mongoos.Schema({
+        name: String,
+        price : Number
+    });
+
+    const productmodel = mongoos.model('products',productschema);
+    let data =  new productmodel({name: "DayaKiran", price: 500});
+    let result =  await data.save();
+    console.log(result);
 }
 
-app.use(filerApi)
 
-app.get('/',(req,res)=>{
-    res.send("You are in home");
-})
-app.get('/user',(req,res)=>{
-    res.send("You are in user page");
-})
-
-
-
-
-
-app.listen(5000);
+main();

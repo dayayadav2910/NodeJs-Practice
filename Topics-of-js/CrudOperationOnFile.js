@@ -9,7 +9,6 @@ fs.appendFileSync(fullpathf,"Daya Yadav created this file \n", (error)=>{
 })
 
 //  Rename File Name
-
 fs.rename(fullpathf,`${fullpath}/fruits.txt`,(error) =>{
     if(!error){
         console.log("File Is renamed")
